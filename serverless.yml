@@ -1,0 +1,49 @@
+# serverless.yml
+
+service: nexmo-pushover
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+    - __pycache__/**
+    - .idea/**
+    - .vscode/**
+
+custom:
+  wsgi:
+    app: app.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  memorySize: 512
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    shouldStartNameWithService: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "ssm:GetParameter*"
+      Resource: "*"
+
+
+functions:
+  mainHandler:
+    handler: wsgi_handler.handler
+    events:
+      - http:
+          method: any
+          path: /{proxy+}
+      - http:
+          method: any
+          path: /
