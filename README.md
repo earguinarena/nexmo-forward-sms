@@ -35,7 +35,7 @@ sls deploy
 aws ssm put-parameter \
     --name "/vonage/virtual_number" \
     --type "String" \
-    --value "value" \
+    --value "__CHANGE_VALUE__" \
     --overwrite
 ```
 
@@ -44,7 +44,7 @@ aws ssm put-parameter \
 aws ssm put-parameter \
     --name "/vonage/destination_number" \
     --type "String" \
-    --value "value" \
+    --value "__CHANGE_VALUE__" \
     --overwrite
 ```
 
@@ -53,7 +53,7 @@ aws ssm put-parameter \
 aws ssm put-parameter \
     --name "/vonage/api_key" \
     --type "String" \
-    --value "value" \
+    --value "__CHANGE_VALUE__" \
     --overwrite
 ```
 
@@ -62,7 +62,7 @@ aws ssm put-parameter \
 aws ssm put-parameter \
     --name "/vonage/api_secret" \
     --type "String" \
-    --value "value" \
+    --value "__CHANGE_VALUE__" \
     --overwrite
 ```
 
@@ -73,6 +73,7 @@ Nexmo Settings https://dashboard.nexmo.com/settings
 Configure 
 * "Delivery receipts" : 
 ```https://<hex>.execute-api.<region>.amazonaws.com/dev/webhooks/inbound-sms```
+  * get from "Deployment" text console
 * "HTTP method": POST-JSON 
 
 Send Message to your virtual number Test it :)
